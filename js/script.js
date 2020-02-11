@@ -24,6 +24,7 @@ function testTest(stuff) {
 
 
 const api_key = 'f8dc88a7e302436e8753039d67579de0';
+const coordinates = '356363.36 6213391.38';
 getDataFromTrafikverket(api_key)
     .then(data => testTest(data))
     .then(data => console.log(data))
