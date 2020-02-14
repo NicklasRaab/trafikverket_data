@@ -1,30 +1,66 @@
+// https://github.com/opendata-stuttgart/meta/wiki/APIs
+// https://oppnadata.se/#noscroll
+// https://oppnadata.se/datamangd/#esc_entry=758&esc_context=694
+// läsa av google maps hur mycket folk det är på en plats
+// foursquare
+//
+//
+
+
+
 const getDataFromTrafikverket = async (api_key) => {
 
     const request_body_trafic = await getTraficBody(api_key);
-    const request_body_noise = await getNoiseBody(api_key);
+    // const request_body_train = await getTrainBody(api_key);
 
     const response_trafic = await fetchWithCustomBody(request_body_trafic);
-    const response_noise = await fetchWithCustomBody(request_body_noise);
+    // const response_train = await fetchWithCustomBody(request_body_train);
 
     let data_trafic = await response_trafic.json();
-    let data_noise = await response_noise.json();
+    // let data_train = await response_train.json();
 
     dataObject = {
       trafic: data_trafic,
-      noise: data_noise
+      // train: data_train
     }
+
+    // sol moln regn
+    // dag upp och ner
+    // mängd regn
+    // luftkvalitet
+    // trafik
+    // färjor
+    // soltimmar
+    // "mängd" sol
+    // öppettider (hårdkoder)
+    // orstider (hårdkoda)
+    // någon nämner helsingborgs stad (twitter api)
+    // polisen (har de api?)
+    // trafikolycka (api?)
+
+    // en array per dataström
+    // kan uppdateras oftare än en timmma
 
     return dataObject;
 }
 
 function dataOutputWriter(data) {
   console.log(data);
-  data.noise.RESPONSE.RESULT[0].TrafficFlow.forEach(row => {
+  data.trafic.RESPONSE.RESULT[0].TrafficFlow.forEach(row => {
       let element = document.querySelector('#content');
       let row_data = '<p>' + row.SiteId + ' ' + row.AverageVehicleSpeed + '</p>';
       element.innerHTML = element.innerHTML + row_data;
   });
   // console.log(stuff.noise.RESPONSE.RESULT[0]);
+
+
+  // for (var i = 0; i < 24; i++) {
+  //   iMusic(playTrain(array]i));
+  //   iMusic(playTrain(array]i));
+  //   iMusic(playTrain(array]i));
+  //   iMusic(playTrain(array]i));
+  //   iMusic(playTrain(array]i));
+  // }
   return data;
 }
 
